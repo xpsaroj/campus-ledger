@@ -1,0 +1,28 @@
+# Python virtual env and tooling
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Env files
+.env
+.env.*
+
+# Backend runtime artifacts
+server/db.sqlite3
+server/media/
+server/staticfiles/
+
+# Frontend artifacts
+client/node_modules/
+client/dist/
+client/.vite/
+
+# ignore files in
+ltc/
