@@ -12,6 +12,8 @@ const emptyForm = {
     email: '',
     department: '',
     year: 1,
+    account_username: '',
+    account_password: '',
 }
 
 function StudentsPage() {
@@ -67,11 +69,20 @@ function StudentsPage() {
         event.preventDefault()
         setError('')
 
+        const payload = {
+            name: formData.name,
+            email: formData.email,
+            department: formData.department,
+            year: formData.year,
+            account_username: formData.account_username?.trim() || '',
+            account_password: formData.account_password?.trim() || '',
+        }
+
         try {
             if (editingId) {
-                await updateStudent(editingId, formData)
+                await updateStudent(editingId, payload)
             } else {
-                await createStudent(formData)
+                await createStudent(payload)
             }
             resetForm()
             await loadStudents(search)
@@ -87,6 +98,8 @@ function StudentsPage() {
             email: student.email,
             department: student.department,
             year: student.year,
+            account_username: '',
+            account_password: '',
         })
     }
 
@@ -198,11 +211,34 @@ function StudentsPage() {
                         id="year"
                         type="number"
                         min="1"
-                        max="8"
+                        max="4"
                         name="year"
                         value={formData.year}
                         onChange={handleFormChange}
                         required
+                    />
+
+                    <label htmlFor="account_username">Student login username</label>
+                    <input
+                        id="account_username"
+                        name="account_username"
+                        value={formData.account_username}
+                        onChange={handleFormChange}
+                        placeholder="e.g. john.smith"
+                        disabled={Boolean(editingId)}
+                        required={!editingId}
+                    />
+
+                    <label htmlFor="account_password">Student login password</label>
+                    <input
+                        id="account_password"
+                        type="password"
+                        name="account_password"
+                        value={formData.account_password}
+                        onChange={handleFormChange}
+                        placeholder="Set only when creating"
+                        disabled={Boolean(editingId)}
+                        required={!editingId}
                     />
 
                     <div className="form-actions">

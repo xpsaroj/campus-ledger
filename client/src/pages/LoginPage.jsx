@@ -17,7 +17,7 @@ function LoginPage({ onLogin, error, loading }) {
         <div className="auth-page">
             <form className="auth-card" onSubmit={handleSubmit}>
                 <h1>Campus Ledger</h1>
-                <p className="muted">Sign in to manage students and enrollments.</p>
+                <p className="muted">Sign in as admin or student to access your dashboard.</p>
 
                 <label htmlFor="username">Username</label>
                 <input
@@ -45,6 +45,7 @@ function LoginPage({ onLogin, error, loading }) {
                 </button>
 
                 <p className="hint">Default account: admin / admin1234</p>
+                <p className="hint">Student accounts can be created from the Students page.</p>
             </form>
         </div>
     )

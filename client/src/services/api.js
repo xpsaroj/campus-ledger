@@ -19,6 +19,11 @@ export const login = async (username, password) => {
     return response.data
 }
 
+export const getCurrentUser = async () => {
+    const response = await api.get('/auth/me/')
+    return response.data
+}
+
 export const logout = async () => {
     await api.post('/auth/logout/')
 }
@@ -63,4 +68,14 @@ export const updateEnrollment = async (id, payload) => {
 
 export const deleteEnrollment = async (id) => {
     await api.delete(`/enrollments/${id}/`)
+}
+
+export const getDashboardSummary = async () => {
+    const response = await api.get('/dashboard/summary/')
+    return response.data
+}
+
+export const getMyProfile = async () => {
+    const response = await api.get('/profile/me/')
+    return response.data
 }

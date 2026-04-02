@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 
-function Layout({ onLogout, username }) {
+function Layout({ onLogout, username, role }) {
     return (
         <div className="app-shell">
             <header className="topbar">
@@ -17,15 +17,37 @@ function Layout({ onLogout, username }) {
             </header>
 
             <nav className="tabs">
-                <NavLink to="/students" className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
-                    Students
-                </NavLink>
-                <NavLink
-                    to="/enrollments"
-                    className={({ isActive }) => (isActive ? 'tab active' : 'tab')}
-                >
-                    Enrollments
-                </NavLink>
+                {role === 'admin' ? (
+                    <>
+                        <NavLink to="/home" className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
+                            Dashboard
+                        </NavLink>
+                        <NavLink to="/students" className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
+                            Students
+                        </NavLink>
+                        <NavLink
+                            to="/enrollments"
+                            className={({ isActive }) => (isActive ? 'tab active' : 'tab')}
+                        >
+                            Enrollments
+                        </NavLink>
+                    </>
+                ) : (
+                    <>
+                        <NavLink
+                            to="/my-profile"
+                            className={({ isActive }) => (isActive ? 'tab active' : 'tab')}
+                        >
+                            My Profile
+                        </NavLink>
+                        <NavLink
+                            to="/my-enrollments"
+                            className={({ isActive }) => (isActive ? 'tab active' : 'tab')}
+                        >
+                            My Enrollments
+                        </NavLink>
+                    </>
+                )}
             </nav>
 
             <main className="content">

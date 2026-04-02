@@ -1,6 +1,6 @@
 # Campus Ledger
 
-Campus Ledger is a clean and professional CRUD application built with Django REST Framework and React (Vite).
+Campus Ledger is a CRUD application built with Django REST Framework and React (Vite).
 It includes token-based authentication and two related modules:
 
 - Students
@@ -14,11 +14,15 @@ It includes token-based authentication and two related modules:
 ## Features
 
 - Token authentication (login/logout)
-- Full CRUD for Students
-- Full CRUD for Enrollments
+- Role-based experience (Admin UI vs Student UI)
+- Admin home dashboard with summary stats and recent activity
+- Admin-only CRUD for Students
+- Admin-only CRUD for Enrollments
+- Student self-service My Profile page
+- Student self-service My Enrollments page
+- Required student login account creation from Students form
 - Search support on both modules
 - Responsive UI with plain CSS
-- Light green primary color system without gradients
 
 ## Tech Stack
 
@@ -115,10 +119,12 @@ VITE_API_BASE_URL=http://127.0.0.1:8000/api
 ### Authentication
 
 - POST /api/auth/token/ (login and get token)
+- GET /api/auth/me/ (fetch current authenticated user role)
 - POST /api/auth/logout/ (invalidate current token)
 
 ### Students
 
+- Admin only
 - GET /api/students/
 - POST /api/students/
 - GET /api/students/{id}/
@@ -127,11 +133,17 @@ VITE_API_BASE_URL=http://127.0.0.1:8000/api
 
 ### Enrollments
 
+- Admin only
 - GET /api/enrollments/
 - POST /api/enrollments/
 - GET /api/enrollments/{id}/
 - PUT /api/enrollments/{id}/
 - DELETE /api/enrollments/{id}/
+
+### Dashboard and Profile
+
+- GET /api/dashboard/summary/ (admin only)
+- GET /api/profile/me/ (student only)
 
 ## Data Model
 
@@ -140,7 +152,8 @@ VITE_API_BASE_URL=http://127.0.0.1:8000/api
 - name
 - email (unique)
 - department
-- year (1-8)
+- year (1-4)
+- required linked user account for student login
 - created_at
 - updated_at
 
@@ -155,9 +168,12 @@ VITE_API_BASE_URL=http://127.0.0.1:8000/api
 
 ## Usage Notes
 
-- You must log in before accessing Students and Enrollments.
+- You must log in before accessing protected pages.
+- Admin users land on Home and can manage Students and Enrollments.
+- Student users land on My Profile and can access only My Profile and My Enrollments.
+- Student users do not see the admin dashboard or management pages.
+- While creating a student, admin must provide student username and password.
 - Deleting a student also deletes related enrollments.
-- Search fields are available from the frontend for both modules.
 
 ## Development Commands
 

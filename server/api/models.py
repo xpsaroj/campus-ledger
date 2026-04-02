@@ -1,7 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Student(models.Model):
+	user = models.OneToOneField(
+		User,
+		on_delete=models.SET_NULL,
+		null=True,
+		blank=True,
+		related_name='student_profile',
+	)
 	name = models.CharField(max_length=120)
 	email = models.EmailField(unique=True)
 	department = models.CharField(max_length=120)

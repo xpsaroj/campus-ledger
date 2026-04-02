@@ -5,7 +5,7 @@ from .models import Enrollment, Student
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-	list_display = ['name', 'email', 'department', 'year']
+	list_display = ['name', 'email', 'department', 'year', 'user']
 	search_fields = ['name', 'email', 'department']
 
 
